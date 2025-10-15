@@ -199,10 +199,6 @@ This ensures:
 - **Open Source**: All code is publicly available for audit
 - **Secure Communication**: All API calls use HTTPS
 
-## License
-
-MIT License - See LICENSE file for details
-
 ## Acknowledgments
 
 - I've built this for internal use, it's as-is.
