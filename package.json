@@ -1,0 +1,24 @@
+{
+  "name": "whatsapp-translator",
+  "version": "1.1.0",
+  "description": "Chrome extension to translate WhatsApp messages using ChatGPT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "zip -r whatsapp-translator.zip . -x '*.git*' -x 'node_modules/*' -x '*.zip' -x 'package*.json'",
+    "clean": "rm -f whatsapp-translator.zip"
+  },
+  "keywords": [
+    "whatsapp",
+    "translator",
+    "chrome-extension",
+    "chatgpt",
+    "openai"
+  ],
+  "author": "Jeroen Breemhaar",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  }
+}

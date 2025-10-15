@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const form = document.getElementById('settingsForm');
   const apiKeyInput = document.getElementById('apiKey');
   const targetLanguageSelect = document.getElementById('targetLanguage');
+  const customPromptInput = document.getElementById('customPrompt');
   const saveBtn = document.getElementById('saveBtn');
   const status = document.getElementById('status');
 
@@ -14,12 +15,15 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   function loadSettings() {
-    chrome.storage.sync.get(['openai_api_key', 'target_language'], function(result) {
+    chrome.storage.sync.get(['openai_api_key', 'target_language', 'custom_prompt'], function(result) {
       if (result.openai_api_key) {
         apiKeyInput.value = result.openai_api_key;
       }
       if (result.target_language) {
         targetLanguageSelect.value = result.target_language;
+      }
+      if (result.custom_prompt) {
+        customPromptInput.value = result.custom_prompt;
       }
     });
   }
@@ -27,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function saveSettings() {
     const apiKey = apiKeyInput.value.trim();
     const targetLanguage = targetLanguageSelect.value;
+    const customPrompt = customPromptInput.value.trim();
 
     if (!apiKey) {
       showStatus('Voer een geldige API key in', 'error');
@@ -43,7 +48,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     chrome.storage.sync.set({
       openai_api_key: apiKey,
-      target_language: targetLanguage
+      target_language: targetLanguage,
+      custom_prompt: customPrompt
     }, function() {
       if (chrome.runtime.lastError) {
         showStatus('Fout bij opslaan: ' + chrome.runtime.lastError.message, 'error');

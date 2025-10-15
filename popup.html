@@ -32,18 +32,32 @@
       color: #333;
     }
 
-    input[type="text"], input[type="password"], select {
+    input[type="text"], input[type="password"], select, textarea {
       width: 100%;
       padding: 8px 12px;
       border: 1px solid #ddd;
       border-radius: 6px;
       font-size: 14px;
       box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
 
-    input[type="text"]:focus, input[type="password"]:focus, select:focus {
+    textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    input[type="text"]:focus, input[type="password"]:focus, select:focus, textarea:focus {
       outline: none;
       border-color: #25d366;
+    }
+
+    code {
+      background: #f0f0f0;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: monospace;
+      font-size: 12px;
     }
 
     button {
@@ -113,27 +127,35 @@
       <label for="apiKey">OpenAI API Key:</label>
       <input type="password" id="apiKey" placeholder="sk-..." required>
       <div class="help-text">
-        Je kunt een API key krijgen op <a href="https://platform.openai.com/api-keys" class="link" target="_blank">platform.openai.com</a>
+        You can get a OpenAI API key at <a href="https://platform.openai.com/api-keys" class="link" target="_blank">platform.openai.com</a>
       </div>
     </div>
 
     <div class="form-group">
-      <label for="targetLanguage">Doeltaal:</label>
+      <label for="targetLanguage">Targetlanguage:</label>
       <select id="targetLanguage" required>
-        <option value="Nederlands">Nederlands</option>
-        <option value="Engels">Engels</option>
-        <option value="Duits">Duits</option>
-        <option value="Frans">Frans</option>
-        <option value="Spaans">Spaans</option>
-        <option value="Italiaans">Italiaans</option>
-        <option value="Portugees">Portugees</option>
-        <option value="Russisch">Russisch</option>
-        <option value="Chinees">Chinees</option>
-        <option value="Japans">Japans</option>
+        <option value="Dutch">Dutch</option>
+        <option value="English">English</option>
+        <option value="German">German</option>
+        <option value="French">French</option>
+        <option value="Spanish">Spanish</option>
+        <option value="Italian">Italian</option>
+        <option value="Portuguese">Portuguese</option>
+        <option value="Russian">Russian</option>
+        <option value="Chinese">Chinese</option>
+        <option value="Japanese">Japanese</option>
       </select>
     </div>
 
-    <button type="submit" id="saveBtn">Instellingen opslaan</button>
+    <div class="form-group">
+      <label for="customPrompt">Custom System Prompt (optional):</label>
+      <textarea id="customPrompt" rows="4" placeholder="You are a professional translator. Translate the following text to {targetLanguage}."></textarea>
+      <div class="help-text">
+        Use <code>{targetLanguage}</code> as placeholder. Leave empty for default prompt.
+      </div>
+    </div>
+
+    <button type="submit" id="saveBtn">Save settings</button>
   </form>
 
   <div id="status" class="status" ></div>

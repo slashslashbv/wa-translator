@@ -1,2 +1,15 @@
+# IDE
 .idea/
 /.idea/
+.vscode/
+
+# Dependencies
+node_modules/
+
+# Build artifacts
+*.zip
+dist/
+
+# OS
+.DS_Store
+Thumbs.db

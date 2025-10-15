@@ -117,6 +117,7 @@ class WhatsAppTranslator {
       }
 
       const targetLanguage = 'Nederlands'
+      console.log('Content: Translating to', targetLanguage);
       const translatedText = await this.callChatGPT(originalText, targetLanguage, apiKey);
 
       this.showTranslation(textElement, originalText, translatedText);
@@ -141,37 +142,30 @@ class WhatsAppTranslator {
   }
 
   async callChatGPT(text, targetLanguage, apiKey) {
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
-      },
-      body: JSON.stringify({
-        model: 'gpt-3.5-turbo',
-        messages: [
-          {
-            role: 'system',
-            content: `Je bent een professionele vertaler. Vertaal de gegeven tekst naar het ${targetLanguage}. 
-Je moet berichten vertalen in WhatsApp, en de context van de berichten is meestal autotransport.
-Geef alleen de vertaling terug, geen uitleg. `
-          },
-          {
-            role: 'user',
-            content: text
+    // Use chrome.runtime.sendMessage to call background script
+    // This avoids CORS issues
+    return new Promise((resolve, reject) => {
+      chrome.runtime.sendMessage(
+        {
+          action: 'translate',
+          text: text,
+          targetLanguage: targetLanguage,
+          apiKey: apiKey
+        },
+        (response) => {
+          if (chrome.runtime.lastError) {
+            reject(new Error(chrome.runtime.lastError.message));
+            return;
           }
-        ],
-        max_tokens: 1000,
-        temperature: 0.3
-      })
+
+          if (response.success) {
+            resolve(response.translation);
+          } else {
+            reject(new Error(response.error || 'Translation failed'));
+          }
+        }
+      );
     });
-
-    if (!response.ok) {
-      throw new Error(`API error: ${response.status}`);
-    }
-
-    const data = await response.json();
-    return data.choices[0].message.content.trim();
   }
 
   showTranslation(textElement, originalText, translatedText) {
