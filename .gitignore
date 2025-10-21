@@ -10,6 +10,10 @@ node_modules/
 *.zip
 dist/
 
+# Testing
+coverage/
+*.log
+
 # OS
 .DS_Store
 Thumbs.db
