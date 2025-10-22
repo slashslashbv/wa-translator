@@ -1,5 +1,7 @@
 # WhatsApp Translator Chrome Extension
 
+![Tests](https://github.com/jrsb-dev/wa-translator/actions/workflows/test.yml/badge.svg)
+
 A Chrome extension that translates WhatsApp Web messages using OpenAI's ChatGPT API.
 
 This extension only works with WhatsApp Web (https://web.whatsapp.com/) — it is not
@@ -141,12 +143,32 @@ This ensures:
 
 ## Development
 
+### Testing
+
+The project includes a comprehensive test suite with 63 unit tests covering all core functionality.
+
+**Run tests:**
+```bash
+npm install          # Install dependencies (first time only)
+npm test             # Run all tests
+npm run test:watch   # Run tests in watch mode
+npm run test:coverage # Generate coverage report
+```
+
+**Test coverage includes:**
+- Background script: API calls, translation handling, error management
+- Content script: HTML parsing, Chrome messaging, translation workflow
+- Popup script: Settings validation, storage operations, UI updates
+
+All tests run automatically via GitHub Actions on every push and pull request.
+
 ### Making Changes
 
 1. Make your code changes
-2. Go to `chrome://extensions/`
-3. Click the reload icon (🔄) on the extension card
-4. Reload WhatsApp Web to see changes
+2. Run `npm test` to ensure all tests pass
+3. Go to `chrome://extensions/`
+4. Click the reload icon (🔄) on the extension card
+5. Reload WhatsApp Web to see changes
 
 ### Debugging
 
