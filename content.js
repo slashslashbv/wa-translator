@@ -43,12 +43,12 @@ class WhatsAppTranslator {
 
   addTranslateButtons() {
 		console.log('Adding translate buttons to messages...');
-    const messages = document.querySelectorAll('._amjy')
+    const messages = document.querySelectorAll('._amjv')
 
     messages.forEach((message) => {
       if (message.querySelector('.translate-btn')) return;
 
-      const textElement = message.querySelector('.selectable-text');
+      const textElement = message.querySelector('.copyable-text');
 
 			let canTranslate = false;
 
